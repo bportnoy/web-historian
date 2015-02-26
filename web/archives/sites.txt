@@ -2,3 +2,20 @@ www.google.com
 
 www.yahoo.com
 www.askjeeves.com
+www.marcbalaban.com
+www.bradleyportnoy.com
+assets/css/theme.min.css?v=d3cc306375
+assets/js/theme.min.js?v=d3cc306375
+content/images/2015/02/bradley-portnoy-blog-logo-black.png
+content/images/2015/02/headshot-for-linkedin.jpg
+content/images/2015/02/Screen-Shot-2015-02-19-at-10-09-18-PM.png
+content/images/2015/02/hack-reactor-interior.jpg
+st/c/css/ask_home.2fd53440.css
+st/c/js/ask_unified.min.c7f61e55.js
+st/c/js/ask_home.min.6239cf50.js
+images/icons/product/chrome-48.png
+images/srpr/logo9w.png
+images/srpr/nav_logo80.png
+xjs/_/js/k=xjs.hp.en_US.nBQxh8bMob4.O/m=sb_he,d/rt=j/d=1/t=zcms/rs=ACT90oGGiZbnzxTIxyP88_wCNu0Dvw33Yg
+images/nav_logo176.png
+www.happybirthday.com

@@ -41,18 +41,6 @@ exports.isURLArchived = function(url, archiveData, res){
   }
 };
 
-
-
-
-        //url === /www.google.com
-        //if it's in archived sites
-          //read the file
-          //execution of a callback in archive-helpers which
-            //new function
-            //
-        //if it's in sites but not archived sites
-        //if it's in neither, 404
-
 exports.readListOfUrls = function(url,res){
   fs.readFile(exports.paths.list,
     {encoding: 'utf8'},
@@ -62,8 +50,19 @@ exports.readListOfUrls = function(url,res){
         console.log('data: ' + data);
         data = data.split("\n");
         if (exports.isUrlInList(url,data)){
-          handler.siteAdded(res);
-        } else{
+          fs.readFile(exports.paths.archiveList,{encoding:'utf8'},
+            function(err,archiveList){
+              if (err) throw err;
+              else{
+                archiveList = archiveList.split('\n');
+                if (exports.isUrlInList(url,archiveList)){
+                  handler.serveArchive(url,res);
+                } else {
+                  handler.siteAdded(res);
+                }
+              }
+            });
+        } else {
           exports.addUrlToList(url,data,res);
         }
       }
@@ -91,7 +90,3 @@ exports.addUrlToArchiveList = function(url, list){
     else console.log('Site ' + url + ' successfully archived.');
   });
 };
-
-// exports.downloadUrls = function(){
-// };
-

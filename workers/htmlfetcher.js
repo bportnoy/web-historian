@@ -5,6 +5,7 @@ var archive = require('../helpers/archive-helpers');
 var http = require('http-request');
 
 var main = function(){
+console.log('initiating archive');
 
 //open archivedsites.txt
   fs.readFile(archive.paths.archiveList, {encoding:"utf8"}, function(err, data){
