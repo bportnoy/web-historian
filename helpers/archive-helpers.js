@@ -27,6 +27,32 @@ exports.initialize = function(pathsObj){
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
 
+exports.isUrlInList = function(url, list){
+  return (list.indexOf(url) === -1) ? false : true;
+};
+
+exports.isURLArchived = function(url, archiveData, res){
+  archiveData = archiveData.split('\n');
+  url = url.slice(1);
+  if (exports.isUrlInList(url,archiveData)){
+    handler.serveArchive(url,res);
+  } else{
+    exports.readListOfUrls(url,res);
+  }
+};
+
+
+
+
+        //url === /www.google.com
+        //if it's in archived sites
+          //read the file
+          //execution of a callback in archive-helpers which
+            //new function
+            //
+        //if it's in sites but not archived sites
+        //if it's in neither, 404
+
 exports.readListOfUrls = function(url,res){
   fs.readFile(exports.paths.list,
     {encoding: 'utf8'},
@@ -44,12 +70,8 @@ exports.readListOfUrls = function(url,res){
     });
 };
 
-exports.isUrlInList = function(url, list){
-  return (list.indexOf(url) === -1) ? false : true;
-};
 
 exports.addUrlToList = function(url, list, res){
-  // console.log(list);
   list.push(url);
   list = list.join("\n");
   fs.writeFile(exports.paths.list,list,function(err){
@@ -59,9 +81,17 @@ exports.addUrlToList = function(url, list, res){
   });
 };
 
-exports.isURLArchived = function(){
+exports.addUrlToArchiveList = function(url, list){
+  // console.log(list);
+  list.push(url);
+  list = list.join("\n");
+  fs.writeFile(exports.paths.archiveList,list,function(err){
+    if (err){ throw err;
+        console.log(handler);}
+    else console.log('Site ' + url + ' successfully archived.');
+  });
 };
 
-exports.downloadUrls = function(){
-};
+// exports.downloadUrls = function(){
+// };
 

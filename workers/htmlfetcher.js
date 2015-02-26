@@ -36,7 +36,7 @@ var fetchSites = function(sites, archiveList){
     getUrl = "http://" + url;
     http.get(getUrl, archive.paths.archivedSites + url + '.html', function(err, response){
       if (err) throw err;
-      console.log("archived " + url);
+      else archive.addUrlToArchiveList(url,archiveList);
     });
   });
 };
