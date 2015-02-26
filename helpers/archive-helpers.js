@@ -28,7 +28,7 @@ exports.initialize = function(pathsObj){
 
 exports.readListOfUrls = function(url,res){
 
-  fs.readFile("../web/archives/sites.txt",
+  fs.readFile(exports.paths.list,
     {encoding: 'utf8'},
     function(err,data){
       // console.log(data);
@@ -51,7 +51,7 @@ exports.isUrlInList = function(url, list){
 exports.addUrlToList = function(url, list, res){
   list.push(url);
   list.join("\r\n");
-  fs.writeFile("../web/archives/sites.txt",list,function(err){
+  fs.writeFile(exports.paths.list,list,function(err){
     if (err){ throw err;
         console.log(handler);}
     else handler.siteAdded(res);

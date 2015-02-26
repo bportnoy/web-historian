@@ -15,11 +15,12 @@ var actions = {
       url = "/index.html";
     }
 
-    url = settings.baseUrl + url;
+    url = archive.paths.siteAssets + url;
 
-    //read the file at URL
+    console.log('Serving request for: ' + url);
     fs.readFile(url, function(err, data){
       if (err) {
+        console.log(err);
         if (err.code === "ENOENT") sendResponse(res,null,404);
         else throw err;
       }//error handling
@@ -48,11 +49,10 @@ var actions = {
 
 exports.siteAdded = function(res){
   fs.readFile('./public/loading.html', function(err,data){
-    res.writeHead(301);
+    res.writeHead(302);
     res.write(data);
     res.end();
   });
-  console.log('site added!!!!!1!');
 };
 
 var sendResponse = function(res, data, statusCode) {
