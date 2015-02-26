@@ -12,8 +12,9 @@ var handler = require('../web/request-handler.js');
 
 exports.paths = {
   'siteAssets' : path.join(__dirname, '../web/public'),
-  'archivedSites' : path.join(__dirname, '../archives/sites'),
-  'list' : path.join(__dirname, '../archives/sites.txt')
+  'archivedSites' : path.join(__dirname, '../web/archives/sites/'),
+  'list' : path.join(__dirname, '../web/archives/sites.txt'),
+  'archiveList' : path.join(__dirname, '../web/archives/archives.txt')
 };
 
 // Used for stubbing paths for jasmine tests, do not modify
@@ -27,16 +28,15 @@ exports.initialize = function(pathsObj){
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(url,res){
-
   fs.readFile(exports.paths.list,
     {encoding: 'utf8'},
     function(err,data){
-      // console.log(data);
       if (err) throw err;
       else{
+        console.log('data: ' + data);
         data = data.split("\n");
         if (exports.isUrlInList(url,data)){
-          //don't add, tell them it's loading
+          handler.siteAdded(res);
         } else{
           exports.addUrlToList(url,data,res);
         }
@@ -49,8 +49,9 @@ exports.isUrlInList = function(url, list){
 };
 
 exports.addUrlToList = function(url, list, res){
+  // console.log(list);
   list.push(url);
-  list.join("\r\n");
+  list = list.join("\n");
   fs.writeFile(exports.paths.list,list,function(err){
     if (err){ throw err;
         console.log(handler);}

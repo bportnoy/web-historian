@@ -15,6 +15,12 @@ module.exports = function () {
     fs.closeSync(file);
   }
 
+  if (!fs.existsSync("./archives/archives.txt")) {
+    // We use fs.openSync to create the file
+    var file = fs.openSync("./archives/archives.txt", "w");
+    fs.closeSync(file);
+  }
+
   // if the folder doesn't exist, create it.
   if (!fs.existsSync("./archives/sites")) {
     // We use fs.mkdirSync to create the folder

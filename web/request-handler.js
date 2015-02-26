@@ -20,12 +20,10 @@ var actions = {
     console.log('Serving request for: ' + url);
     fs.readFile(url, function(err, data){
       if (err) {
-        console.log(err);
         if (err.code === "ENOENT") sendResponse(res,null,404);
         else throw err;
       }//error handling
       else {
-        console.log(url);
         res.writeHead(200);
         res.write(data);
         res.end();
