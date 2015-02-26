@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
+var handler = require('../web/request-handler.js');
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -25,13 +26,36 @@ exports.initialize = function(pathsObj){
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
 
-exports.readListOfUrls = function(){
+exports.readListOfUrls = function(url,res){
+
+  fs.readFile("../web/archives/sites.txt",
+    {encoding: 'utf8'},
+    function(err,data){
+      // console.log(data);
+      if (err) throw err;
+      else{
+        data = data.split("\n");
+        if (exports.isUrlInList(url,data)){
+          //don't add, tell them it's loading
+        } else{
+          exports.addUrlToList(url,data,res);
+        }
+      }
+    });
 };
 
-exports.isUrlInList = function(){
+exports.isUrlInList = function(url, list){
+  return (list.indexOf(url) === -1) ? false : true;
 };
 
-exports.addUrlToList = function(){
+exports.addUrlToList = function(url, list, res){
+  list.push(url);
+  list.join("\r\n");
+  fs.writeFile("../web/archives/sites.txt",list,function(err){
+    if (err){ throw err;
+        console.log(handler);}
+    else handler.siteAdded(res);
+  });
 };
 
 exports.isURLArchived = function(){
@@ -39,3 +63,4 @@ exports.isURLArchived = function(){
 
 exports.downloadUrls = function(){
 };
+

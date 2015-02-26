@@ -34,27 +34,25 @@ var actions = {
   },
   POST: function(req, res){
     console.log('serving POST');
-    var data = '';
+    var requestedSite = '';
     req.on('data',function(chunk){
-      data += chunk;
+      requestedSite += chunk;
     });
     req.on('end',function(){
-      data = data.slice(4);
+      requestedSite = requestedSite.slice(4);
       //see if exists in sites file
-      fs.readFile('./archives/sites.txt',{
-        encoding: 'utf8'
-        },
-        function(err,data){
-        if (err) throw err;
-        else{
-          var allSites = data.split('\n');
-          console.log(allSites);
-        }
-      });
-
-      //if not, write to sites file
+      archive.readListOfUrls(requestedSite,res);
     });
   }
+};
+
+exports.siteAdded = function(res){
+  fs.readFile('./public/loading.html', function(err,data){
+    res.writeHead(301);
+    res.write(data);
+    res.end();
+  });
+  console.log('site added!!!!!1!');
 };
 
 var sendResponse = function(res, data, statusCode) {
