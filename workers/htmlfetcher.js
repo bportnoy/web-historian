@@ -33,8 +33,8 @@ var openSites = function(archiveList){
 var fetchSites = function(sites, archiveList){
   var grab = _.difference(sites, archiveList);
   _.each(grab, function(url){
-    url = "http://" + url;
-    http.get(url, archive.paths.archivedSites, function(err, response){
+    getUrl = "http://" + url;
+    http.get(getUrl, archive.paths.archivedSites + url + '.html', function(err, response){
       if (err) throw err;
       console.log("archived " + url);
     });
